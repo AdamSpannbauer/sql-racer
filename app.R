@@ -1,7 +1,7 @@
 library(shiny)
 library(shinythemes)
-library(shinyWidgets)
 library(lubridate)
+
 source("gen_problems.R")
 
 WINNING_NUMBER <- 10
@@ -23,7 +23,10 @@ check_answer <- function(user_input, game_state) {
 
 ui <- fluidPage(
   theme = shinytheme("darkly"),
-  # setBackgroundColor("#aaaaaa"),
+  tags$head(
+    includeHTML("www/meta-tags.html"),
+    tags$link(rel = "shortcut icon", href = "favicon.ico")
+  ),
   fluidRow(
     column(
       width = 8,
