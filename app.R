@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
+library(lubridate)
 source("gen_problems.R")
 
 WINNING_NUMBER <- 10
@@ -66,7 +67,7 @@ server <- function(input, output, session) {
   RV <- reactiveValues(
     run_timer = FALSE,
     start_time = Sys.time(),
-    elapsed_time = Sys.time() - Sys.time(),
+    elapsed_time = difftime(Sys.time(), Sys.time(), unit = "secs"),
     current_problem = list(
       prompt = "-- fill in the blanks will appear here; no syntax highlighting... :(",
       answer = NA_character_
@@ -77,7 +78,7 @@ server <- function(input, output, session) {
   observeEvent(input$start_btn, {
     RV$run_timer <- TRUE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- Sys.time() - RV$start_time
+    RV$elapsed_time <- difftime(Sys.time(), RV$start_time, unit = "secs")
     RV$current_problem <- sample_problem()
     RV$n_correct <- 0
   })
@@ -85,7 +86,7 @@ server <- function(input, output, session) {
   observeEvent(input$stop_btn, {
     RV$run_timer <- FALSE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- Sys.time() - Sys.time()
+    RV$elapsed_time <- difftime(Sys.time(), Sys.time(), unit = "secs")
     RV$current_problem <- list(
       prompt = "-- fill in the blanks will appear here; no syntax highlighting... :(",
       answer = NA_character_
