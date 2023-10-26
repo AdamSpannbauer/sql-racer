@@ -22,15 +22,15 @@ check_answer <- function(user_input, game_state) {
 }
 
 ui <- fluidPage(
-  theme = shinytheme("cosmo"),
-  setBackgroundColor("#aaaaaa"),
+  theme = shinytheme("darkly"),
+  # setBackgroundColor("#aaaaaa"),
   fluidRow(
     column(
       width = 8,
       offset = 2,
       align = "center",
       h1("SQL Racer!!"),
-      img(src = "./running-drums.png", width = "25%", style = "border-radius: 5%; margin: 10px"),
+      img(src = "./rubbin-drums.png", width = "25%", style = "border-radius: 5%; margin: 10px"),
       hr(),
       h1(textOutput("timer"), style = "font-size: 9rem; font-weight: bold;"),
       br(),
@@ -58,7 +58,11 @@ ui <- fluidPage(
           class = "btn btn-secondary"
         )
       ),
-    )
+      hr(),
+      fluidRow(
+        style = "margin-bottom: 128px;"
+      )
+    ),
   )
 )
 
@@ -78,7 +82,7 @@ server <- function(input, output, session) {
   observeEvent(input$start_btn, {
     RV$run_timer <- TRUE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- difftime(Sys.time(), RV$start_time, unit = "secs")
+    RV$elapsed_time <- difftime(Sys.time(), RV$start_time, units = "secs")
     RV$current_problem <- sample_problem()
     RV$n_correct <- 0
   })
@@ -86,7 +90,7 @@ server <- function(input, output, session) {
   observeEvent(input$stop_btn, {
     RV$run_timer <- FALSE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- difftime(Sys.time(), Sys.time(), unit = "secs")
+    RV$elapsed_time <- difftime(Sys.time(), Sys.time(), units = "secs")
     RV$current_problem <- list(
       prompt = "-- fill in the blanks will appear here; no syntax highlighting... :(",
       answer = NA_character_
