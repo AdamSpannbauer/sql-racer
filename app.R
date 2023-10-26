@@ -1,25 +1,19 @@
 library(shiny)
 library(shinythemes)
 library(lubridate)
+source("prompt_helpers.R")
 
-source("gen_problems.R")
+# ------------------------------------------------------------------------
+# Where's the data
+QUIZ_TERMS_FILE <- "study_terms.txt"
+QUIZ_QUERIES_FILE <- "study_queries.txt"
+QUIZ_QUERIES_FILE_DELIM <- "*********************************"
 
+# How many prompts per round?
 WINNING_NUMBER <- 10
-ALL_PROBLEMS <- gen_problems(QUIZ_WORDS, QUIZ_QUERIES)
+# ------------------------------------------------------------------------
 
-sample_problem <- function() {
-  i <- sample(length(ALL_PROBLEMS), size = 1)
-  problem <- ALL_PROBLEMS[[i]]
-
-  return(problem)
-}
-
-check_answer <- function(user_input, game_state) {
-  s1 <- tolower(user_input)
-  s2 <- tolower(game_state$current_problem$answer)
-
-  return(s1 == s2)
-}
+ALL_PROBLEMS <- gen_problems(QUIZ_TERMS_FILE, QUIZ_QUERIES_FILE, QUIZ_QUERIES_FILE_DELIM)
 
 ui <- fluidPage(
   theme = shinytheme("darkly"),

@@ -1,0 +1,111 @@
+If you contribute to this file:
+  * DO NOT EDIT LINE 6 AND ABOVE (this section above asterisk line)
+  * ADD YOUR QUERY TO THE BOTTOM OF THE FILE
+  * COPY PASTE THE BELOW LINE OF ASTERISKS BENEATH YOUR QUERY
+  * ADD A COMMENT EXPLAINING THE GOAL OF THE QUERY
+
+p much... follow the patterns already in the file
+
+*********************************
+
+-- Get all fields in orders table
+-- Sort by amount large to small
+-- Only show top 5
+SELECT *
+FROM orders
+ORDER BY amount DESC
+LIMIT 5;
+
+*********************************
+
+-- Show mean score by section
+-- Only include sections with a mean greater than 80
+SELECT AVG(score), section
+FROM grade_book
+GROUP BY section
+HAVING AVG(score) > 80;
+
+*********************************
+
+-- Make orders table
+CREATE TABLE orders (
+	order_id INT AUTO_INCREMENT PRIMARY KEY,
+	customer_id INT NOT NULL,
+	date DATE
+);
+
+*********************************
+
+-- Remove the orders table
+DROP TABLE orders;
+
+*********************************
+
+-- Remove all records from orders
+TRUNCATE orders;
+
+*********************************
+
+-- Change date column to default as current date
+ALTER TABLE orders
+ALTER date SET DEFAULT CURDATE();
+
+*********************************
+
+-- Add an is_active column to products
+-- This new column will default to 1
+ALTER TABLE products
+ADD is_active INT DEFAULT 1;
+
+*********************************
+
+-- Remove records that have NULL date
+DELETE FROM orders
+WHERE date IS NULL;
+
+*********************************
+
+-- Change customer info for customer_id 1
+UPDATE customers
+SET street = '1000 Volunteer Blvd',
+     city = 'Knoxville',
+     zip = '37916'
+WHERE customer_id = 1;
+
+*********************************
+
+-- Get row count of orders table
+SELECT COUNT(*)
+FROM orders;
+
+*********************************
+
+-- Get missing value count for the orders' dates
+SELECT COUNT(*) - COUNT(date)
+FROM orders;
+
+*********************************
+
+-- Filter to an id range of orders
+SELECT *
+FROM orders
+WHERE id BETWEEN 10 AND 20;
+
+*********************************
+
+-- Make pretty percents and alias
+SELECT CONCAT(discount * 100, '%') AS percent_discount
+FROM order_details;
+
+*********************************
+
+-- Assign letter grades for A, B, and other
+SELECT
+	CASE
+		WHEN score > 90 THEN 'A'
+		WHEN score > 80 THEN 'B'
+		ELSE 'Other'
+	END AS Grade
+FROM grade_book;
+
+*********************************
