@@ -56,8 +56,12 @@ ui <- fluidPage(
         )
       ),
       hr(),
+      div(
+        align = "left",
+        includeMarkdown("www/instructions.md")
+      ),
       fluidRow(
-        style = "margin-bottom: 128px;"
+        style = "margin-bottom: 32px;"
       )
     ),
   )
