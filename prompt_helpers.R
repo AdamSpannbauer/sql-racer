@@ -54,9 +54,9 @@ gen_problems <- function(quiz_words_file = "study_terms.txt",
 }
 
 
-sample_problem <- function() {
-  i <- sample(length(ALL_PROBLEMS), size = 1)
-  problem <- ALL_PROBLEMS[[i]]
+sample_problem <- function(problems) {
+  i <- sample(length(problems), size = 1)
+  problem <- problems[[i]]
 
   return(problem)
 }

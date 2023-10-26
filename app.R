@@ -80,7 +80,7 @@ server <- function(input, output, session) {
     RV$run_timer <- TRUE
     RV$start_time <- Sys.time()
     RV$elapsed_time <- difftime(Sys.time(), RV$start_time, units = "secs")
-    RV$current_problem <- sample_problem()
+    RV$current_problem <- sample_problem(ALL_PROBLEMS)
     RV$n_correct <- 0
   })
 
@@ -110,7 +110,7 @@ server <- function(input, output, session) {
           answer = NA
         )
       } else {
-        RV$current_problem <- sample_problem()
+        RV$current_problem <- sample_problem(ALL_PROBLEMS)
       }
     }
   })
