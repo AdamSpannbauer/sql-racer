@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(lubridate)
+library(markdown)
 source("prompt_helpers.R")
 
 # ------------------------------------------------------------------------
