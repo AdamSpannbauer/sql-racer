@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+library(shinyWidgets)
 source("gen_problems.R")
 
 WINNING_NUMBER <- 10
@@ -21,12 +22,17 @@ check_answer <- function(user_input, game_state) {
 
 ui <- fluidPage(
   theme = shinytheme("cosmo"),
+  setBackgroundColor("#aaaaaa"),
   fluidRow(
     column(
       width = 8,
       offset = 2,
       align = "center",
-      h1(textOutput("timer")),
+      h1("SQL Racer!!"),
+      img(src = "./running-drums.png", width = "25%", style = "border-radius: 5%; margin: 10px"),
+      hr(),
+      h1(textOutput("timer"), style = "font-size: 9rem; font-weight: bold;"),
+      br(),
       wellPanel(
         div(
           align = "left", verbatimTextOutput("prompt"),
@@ -50,7 +56,7 @@ ui <- fluidPage(
           icon = icon("face-meh"),
           class = "btn btn-secondary"
         )
-      )
+      ),
     )
   )
 )
