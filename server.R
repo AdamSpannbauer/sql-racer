@@ -77,7 +77,7 @@ server <- function(input, output, session) {
 
     prgoressBar(
       value = value,
-      color = "blue",
+      color = "yellow",
       striped = TRUE,
       active = TRUE,
       size = "sm"
