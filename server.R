@@ -1,12 +1,11 @@
 library(shiny)
-library(lubridate)
 
 server <- function(input, output, session) {
   # game state
   RV <- reactiveValues(
     run_timer = FALSE,
     start_time = Sys.time(),
-    elapsed_time = difftime(Sys.time(), Sys.time(), units = "secs"),
+    elapsed_time = Sys.time() - Sys.time(),
     current_problem = list(
       prompt = "-- queries with blanks will appear here\n-- no syntax highlighting :(",
       answer = NA_character_
@@ -17,7 +16,7 @@ server <- function(input, output, session) {
   observeEvent(input$start_btn, {
     RV$run_timer <- TRUE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- difftime(Sys.time(), RV$start_time, units = "secs")
+    RV$elapsed_time <- Sys.time() - RV$start_time
     RV$current_problem <- sample_problem(ALL_PROBLEMS)
     RV$n_correct <- 0
   })
@@ -25,7 +24,7 @@ server <- function(input, output, session) {
   observeEvent(input$stop_btn, {
     RV$run_timer <- FALSE
     RV$start_time <- Sys.time()
-    RV$elapsed_time <- difftime(Sys.time(), Sys.time(), units = "secs")
+    RV$elapsed_time <- Sys.time() - Sys.time()
     RV$current_problem <- list(
       prompt = "-- queries with blanks will appear here\n-- no syntax highlighting :(",
       answer = NA_character_
@@ -64,7 +63,7 @@ server <- function(input, output, session) {
   })
 
   output$timer <- renderText({
-    sprintf("%.1f", abs(RV$elapsed_time))
+    sprintf("%.1f", abs(as.numeric(RV$elapsed_time, units = "secs")))
   })
 
   ui <- fluidPage(
