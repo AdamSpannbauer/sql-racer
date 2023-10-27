@@ -104,8 +104,62 @@ SELECT
 	CASE
 		WHEN score > 90 THEN 'A'
 		WHEN score > 80 THEN 'B'
-		ELSE 'Other'
+	ELSE 'Other'
 	END AS Grade
 FROM grade_book;
+
+*********************************
+
+-- Find first_names with b as third letter
+SELECT first_name
+FROM people
+WHERE first_name LIKE '__b%';
+
+*********************************
+
+-- Filter house data to just a certain 3 years
+SELECT saleprice, yearbuilt
+FROM houseprices
+WHERE yearbuilt IN (1985, 1995, 2005);
+
+*********************************
+
+-- Filter to one of these two conditions
+SELECT saleprice, yearbuilt
+FROM houseprices
+WHERE yearbuilt > 1984 OR saleprice > 300000;
+
+*********************************
+
+-- Create a report that shows the worst & best mpg.
+-- By year between 1990 and 1995.
+-- Only include years with a min hwy mpg greater than 10.
+SELECT year,
+       MIN(hwy) AS worst_hwy_mpg,
+       MAX(hwy) AS best_hwy_mpg
+FROM vehicles
+WHERE year BETWEEN 1990 AND 1995
+GROUP BY year
+HAVING MIN(hwy) > 10
+ORDER BY year;
+
+*********************************
+
+-- Select all records with above average hwy mpg
+SELECT *
+FROM vehicles
+WHERE hwy > (SELECT AVG(hwy)
+             FROM vehicles);
+
+*********************************
+
+-- Show all makes whose average hwy mpg
+-- is above the industry avg
+SELECT make,
+       ROUND(AVG(hwy), 2) AS avg_hwy
+FROM vehicles
+GROUP BY make
+HAVING AVG(hwy) > (SELECT AVG(hwy)
+                   FROM vehicles);
 
 *********************************
