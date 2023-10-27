@@ -1,4 +1,6 @@
+library(shiny)
 library(shinythemes)
+library(plotly)
 
 ui <- fluidPage(
   theme = shinytheme("darkly"),
@@ -45,6 +47,13 @@ ui <- fluidPage(
           label = "Stop...",
           icon = icon("face-meh"),
           class = "btn btn-secondary"
+        ),
+        br(), br(),
+        textInput(
+          inputId = "player_name",
+          label = "Before you start!",
+          value = "Enter name for leaderboard",
+          placeholder = "Enter name for leaderboard"
         )
       ),
       hr(),
@@ -52,8 +61,18 @@ ui <- fluidPage(
         align = "left",
         includeMarkdown("www/instructions.md")
       ),
+      hr(),
       fluidRow(
-        style = "margin-bottom: 32px;"
+        style = "margin-bottom: 32px;",
+        column(
+          width = 6,
+          h4("Leaderboard"),
+          tableOutput("leaderboard_dt")
+        ),
+        column(
+          width = 6,
+          plotlyOutput("scores_dist_plot")
+        )
       )
     ),
   )

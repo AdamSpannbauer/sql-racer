@@ -15,3 +15,8 @@ a {
   background-color: #f7001c !important;
   border-color: #f7001c !important;
 }
+
+#leaderboard_dt , th, td {
+    font-size: 15px !important;
+    color: white !important;
+}

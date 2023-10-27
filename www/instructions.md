@@ -9,4 +9,4 @@
 
 -----
 
-<center><a href="https://github.com/AdamSpannbauer/sql-racer" target="_blank">Contribute code/queries/terms to the app on <i class="fa-brands fa-github" role="presentation" aria-label="face-laugh-beam icon"></i> GitHub!</a></center>
+<center><h4><a href="https://github.com/AdamSpannbauer/sql-racer" target="_blank">Contribute code, queries, and terms on <i class="fa-brands fa-github" role="presentation" aria-label="face-laugh-beam icon"></i> GitHub!!</a></h3></center>

@@ -1,4 +1,5 @@
 library(shiny)
+library(plotly)
 
 server <- function(input, output, session) {
   # game state
@@ -10,7 +11,9 @@ server <- function(input, output, session) {
       prompt = "-- queries with blanks will appear here\n-- no syntax highlighting :(",
       answer = NA_character_
     ),
-    n_correct = 0
+    n_correct = 0,
+    terms = c(),
+    leaderboard = if (HAS_SHEETS_CONNECTION) read_scores(GSHEETS) else NULL
   )
 
   observeEvent(input$start_btn, {
@@ -19,17 +22,11 @@ server <- function(input, output, session) {
     RV$elapsed_time <- Sys.time() - RV$start_time
     RV$current_problem <- sample_problem(ALL_PROBLEMS)
     RV$n_correct <- 0
+    RV$terms <- c()
   })
 
   observeEvent(input$stop_btn, {
     RV$run_timer <- FALSE
-    RV$start_time <- Sys.time()
-    RV$elapsed_time <- Sys.time() - Sys.time()
-    RV$current_problem <- list(
-      prompt = "-- queries with blanks will appear here\n-- no syntax highlighting :(",
-      answer = NA_character_
-    )
-    RV$n_correct <- 0
   })
 
   observeEvent(input$answer_box, {
@@ -37,8 +34,10 @@ server <- function(input, output, session) {
     correct <- check_answer(input$answer_box, RV)
 
     if (isTRUE(correct)) {
+      RV$terms[length(RV$terms) + 1] <- RV$current_problem$answer
       RV$n_correct <- RV$n_correct + 1
       updateTextInput(session, inputId = "answer_box", value = "")
+
 
       if (RV$n_correct >= WINNING_NUMBER) {
         RV$run_timer <- FALSE
@@ -46,6 +45,14 @@ server <- function(input, output, session) {
           prompt = "DONE!",
           answer = NA
         )
+        if (HAS_SHEETS_CONNECTION) {
+          player_name <- input$player_name
+          if (player_name == "Enter name for leaderboard") {
+            player_name <- "Anonymous"
+          }
+          store_record(GSHEETS, game_state = RV, name = player_name)
+          RV$leaderboard <- read_scores(GSHEETS)
+        }
       } else {
         RV$current_problem <- sample_problem(ALL_PROBLEMS)
       }
@@ -58,7 +65,7 @@ server <- function(input, output, session) {
 
     if (running) {
       start_time <- isolate(RV$start_time)
-      RV$elapsed_time <- Sys.time() - start_time
+      RV$elapsed_time <- Sys.time() - RV$start_time
     }
   })
 
@@ -83,10 +90,30 @@ server <- function(input, output, session) {
     )
   })
 
-
-  shinyApp(ui = ui, server = server)
-
   output$prompt <- renderText({
     RV$current_problem$prompt
+  })
+
+  output$leaderboard_dt <- renderTable(
+    {
+      req(HAS_SHEETS_CONNECTION)
+
+      lb <- RV$leaderboard
+      lb$Time <- sprintf("%.1f", lb$finish_time)
+      lb$Name <- lb$name
+
+      rownames(lb) <- NULL
+      lb <- lb[, c("Name", "Time")]
+    },
+    rownames = TRUE,
+    striped = TRUE,
+    bordered = TRUE
+  )
+
+  output$scores_dist_plot <- renderPlotly({
+    req(HAS_SHEETS_CONNECTION)
+
+    RV$run_timer
+    plot_scores(GSHEETS)
   })
 }
