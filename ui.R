@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+library(shinycssloaders)
 library(plotly)
 
 ui <- fluidPage(
@@ -27,7 +28,14 @@ ui <- fluidPage(
       uiOutput("progress_bar"),
       wellPanel(
         div(
-          align = "left", verbatimTextOutput("prompt"),
+          align = "left",
+          withSpinner(
+            verbatimTextOutput("prompt"),
+            type = 2,
+            color = "#0079cb",
+            color.background = "#ffd538",
+            proxy.height = "100px"
+          ),
           textInput(
             inputId = "answer_box",
             label = "SQL!",
