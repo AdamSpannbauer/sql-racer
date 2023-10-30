@@ -12,7 +12,14 @@ ui <- fluidPage(
       rel = "stylesheet",
       type = "text/css",
       href = "style.css"
-    )
+    ),
+    tags$script(HTML('
+      $(document).ready(function() {
+        Shiny.addCustomMessageHandler("focusInput", function(inputId) {
+          $("#" + inputId).focus();
+        });
+      });
+    '))
   ),
   fluidRow(
     column(

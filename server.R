@@ -23,6 +23,9 @@ server <- function(input, output, session) {
     RV$current_problem <- sample_problem(ALL_PROBLEMS)
     RV$n_correct <- 0
     RV$terms <- c()
+
+    # Place cursor in the answer box when start button is clicked
+    session$sendCustomMessage(type = "focusInput", message = "answer_box")
   })
 
   observeEvent(input$stop_btn, {
