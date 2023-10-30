@@ -24,7 +24,7 @@ server <- function(input, output, session) {
     RV$n_correct <- 0
     RV$terms <- c()
 
-    #Place cursor in the answer box when start button is clicked
+    # Place cursor in the answer box when start button is clicked
     session$sendCustomMessage(type = "focusInput", message = "answer_box")
   })
 

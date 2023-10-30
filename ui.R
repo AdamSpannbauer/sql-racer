@@ -12,7 +12,14 @@ ui <- fluidPage(
       rel = "stylesheet",
       type = "text/css",
       href = "style.css"
-    )
+    ),
+    tags$script(HTML('
+      $(document).ready(function() {
+        Shiny.addCustomMessageHandler("focusInput", function(inputId) {
+          $("#" + inputId).focus();
+        });
+      });
+    '))
   ),
   fluidRow(
     column(
@@ -83,16 +90,5 @@ ui <- fluidPage(
         )
       )
     ),
-  ),
-
-  # Code to place cursor in the answer box
-  tags$head(
-    tags$script(HTML('
-      $(document).ready(function() {
-        Shiny.addCustomMessageHandler("focusInput", function(inputId) {
-          $("#" + inputId).focus();
-        });
-      });
-    '))
   )
 )
