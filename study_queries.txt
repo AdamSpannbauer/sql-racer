@@ -110,10 +110,10 @@ FROM grade_book;
 
 *********************************
 
--- Find first_names with b as third letter
+-- Find first_names with b as their 1st letter
 SELECT first_name
 FROM people
-WHERE first_name LIKE '__b%';
+WHERE first_name LIKE 'b%';
 
 *********************************
 
