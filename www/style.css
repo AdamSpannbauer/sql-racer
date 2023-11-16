@@ -26,9 +26,9 @@ a {
   transform-origin: center;
   transform: translate(-50%, -50%);
   text-align:center;
-  top: 50%; 
+  top: 50%;
   left: 50%;
-  font-size: 60px; 
+  font-size: 60px;
   position: absolute;
   width: 60px;
   height: 60px;
@@ -43,9 +43,9 @@ a {
   box-shadow: none !important;
 }
 
-.irs--shiny .irs-handle.state_hover, 
+.irs--shiny .irs-handle.state_hover,
 .irs--shiny .irs-handle:hover{
-  background-color: transparent !important;  
+  background-color: transparent !important;
 }
 
 .label{
@@ -62,8 +62,8 @@ a {
   display:none !important;
 }
 
-.irs--shiny .irs-from, 
-.irs--shiny .irs-to, 
+.irs--shiny .irs-from,
+.irs--shiny .irs-to,
 .irs--shiny .irs-single{
   display:none !important;
 }
@@ -72,6 +72,6 @@ a {
   pointer-events: none !important;
 }
 
-.shiny-input-container:not(.shiny-input-container-inline){
+#progress_bar .form-group {
   width: 100% !important;
 }
