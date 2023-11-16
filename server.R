@@ -81,14 +81,9 @@ server <- function(input, output, session) {
   output$progress_bar <- renderUI({
     value <- 100 * (RV$n_correct / WINNING_NUMBER)
 
-    # prgoressBar(
-    #   value = value,
-    #   color = "yellow",
-    #   striped = TRUE,
-    #   active = TRUE,
-    #   size = "sm"
-    # )
-    sliderInput("progress_bar", "Progress",
+    sliderInput(
+      inputId = "progress_bar",
+      label = "",
       min = 0,
       max = 100,
       value = value,
