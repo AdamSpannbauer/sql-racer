@@ -8,7 +8,7 @@ server <- function(input, output, session) {
     start_time = Sys.time(),
     elapsed_time = Sys.time() - Sys.time(),
     current_problem = list(
-      prompt = "-- queries with blanks will appear here\n-- no syntax highlighting :(",
+      prompt = "-- queries with blanks will appear here",
       answer = NA_character_
     ),
     n_correct = 0,
