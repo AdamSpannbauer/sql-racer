@@ -5,6 +5,7 @@ library(plotly)
 
 ui <- fluidPage(
   theme = shinytheme("darkly"),
+  prismDependencies,
   tags$head(
     includeHTML("www/meta-tags.html"),
     tags$link(rel = "shortcut icon", href = "favicon.ico"),
@@ -37,7 +38,7 @@ ui <- fluidPage(
         div(
           align = "left",
           withSpinner(
-            verbatimTextOutput("prompt"),
+            uiOutput("prompt"),
             type = 2,
             color = "#0079cb",
             color.background = "#ffd538",

@@ -14,6 +14,7 @@ library(plotly)
 source("helpers/prompt_helpers.R")
 source("helpers/progress_bar.R")
 source("helpers/leaderboard.R")
+source("helpers/syntax_highlighting.R")
 
 # ------------------------------------------------------------------------
 # Where's the data

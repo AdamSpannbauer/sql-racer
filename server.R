@@ -76,11 +76,6 @@ server <- function(input, output, session) {
     sprintf("%.1f", abs(as.numeric(RV$elapsed_time, units = "secs")))
   })
 
-  ui <- fluidPage(
-    sliderInput("slider", "slider", 0, 100, 5),
-    uiOutput("bar")
-  )
-
   output$progress_bar <- renderUI({
     value <- 100 * (RV$n_correct / WINNING_NUMBER)
 
@@ -95,8 +90,10 @@ server <- function(input, output, session) {
     )
   })
 
-  output$prompt <- renderText({
-    RV$current_problem$prompt
+  output$prompt <- renderUI({
+    req(RV$current_problem$prompt)
+
+    prismCodeBlock(RV$current_problem$prompt)
   })
 
   output$leaderboard_dt <- renderTable(
