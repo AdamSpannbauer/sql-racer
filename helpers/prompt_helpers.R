@@ -28,7 +28,7 @@ parse_query_file <- function(file_path, query_delim) {
 gen_problems <- function(quiz_words_file = "study_terms.txt",
                          quiz_queries_file = "study_queries.txt",
                          query_delim = "*********************************",
-                         blank_char = "_") {
+                         blank_char = "░") {
   terms <- parse_terms_file(quiz_words_file)
   queries <- parse_query_file(quiz_queries_file, query_delim)
 
