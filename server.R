@@ -49,8 +49,8 @@ server <- function(input, output, session) {
           answer = NA
         )
         if (HAS_SHEETS_CONNECTION) {
-          player_name <- input$player_name
-          if (player_name == "Enter name for leaderboard") {
+          player_name <- trimws(input$player_name)
+          if (!nzchar(player_name)) {
             player_name <- "Anonymous"
           }
           store_record(GSHEETS, game_state = RV, name = player_name)

@@ -68,8 +68,7 @@ ui <- fluidPage(
         textInput(
           inputId = "player_name",
           label = "Before you start!",
-          value = "Enter name for leaderboard",
-          placeholder = "Enter name for leaderboard"
+          placeholder = "Anonymous"
         )
       ),
       hr(),
